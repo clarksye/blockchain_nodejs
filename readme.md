@@ -46,23 +46,19 @@
 
 ## :dart: About ##
 
-Describe your project
+Build blockchain with wallet & mining using nodejs
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: Blockchain;\
+:heavy_check_mark: Wallet 2;\
+:heavy_check_mark: Mining 3;
 
 ## :rocket: Technologies ##
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
 - [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
 
 ## :white_check_mark: Requirements ##
 
@@ -78,10 +74,10 @@ $ git clone https://github.com/clarksye/blockchain_nodejs
 $ cd blockchain_nodejs
 
 # Install dependencies
-$ yarn
+$ npm install
 
 # Run the project
-$ yarn start
+$ 
 
 # The server will initialize in the <http://localhost:3000>
 ```
@@ -91,7 +87,7 @@ $ yarn start
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 
-Made with :heart: by <a href="https://github.com/clarksye" target="_blank">{{YOUR_NAME}}</a>
+Made with :heart: by <a href="https://github.com/clarksye" target="_blank">Burhan Basyri</a>
 
 &#xa0;
 
