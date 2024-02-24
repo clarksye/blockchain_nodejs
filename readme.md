@@ -51,8 +51,8 @@ Build blockchain with wallet & mining using nodejs
 ## :sparkles: Features ##
 
 :heavy_check_mark: Blockchain;\
-:heavy_check_mark: Wallet 2;\
-:heavy_check_mark: Mining 3;
+:heavy_check_mark: Wallet;\
+:heavy_check_mark: Mining;
 
 ## :rocket: Technologies ##
 
