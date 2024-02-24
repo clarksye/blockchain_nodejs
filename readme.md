@@ -76,8 +76,11 @@ $ cd blockchain_nodejs
 # Install dependencies
 $ npm install
 
+# Run test project
+$ npm run test
+
 # Run the project
-$ 
+$ npm 
 
 # The server will initialize in the <http://localhost:3000>
 ```
