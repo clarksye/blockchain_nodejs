@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/clarksye/blockchain_nodejs/issues"
   },
-  "homepage": "https://github.com/clarksye/blockchain_nodejs#readme"
+  "homepage": "https://github.com/clarksye/blockchain_nodejs#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
 }
