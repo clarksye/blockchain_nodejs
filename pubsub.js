@@ -7,7 +7,7 @@ const CHANNELS = {
 }
 
 class PubNubClient {
-    constructor() {
+    constructor({ blockchain }) {
         this.pubnub = new PubNub({
             publishKey: "pub-c-8a408912-60eb-49d6-aca2-92af6832a45c",
             subscribeKey: "sub-c-4e77cbb2-66f9-481b-9396-070d2b6b2a62",
@@ -25,6 +25,8 @@ class PubNubClient {
 
         // Auto subcribe to channels
         this.subscribe();
+
+        this.blockchain = blockchain;
     }
 
     subscribe() {
@@ -34,7 +36,7 @@ class PubNubClient {
         });
     }
 
-    publish(channel, message) {
+    publish({ channel, message }) {
         this.pubnub.publish({
             channel: channel,
             message: JSON.stringify(message),
@@ -50,6 +52,10 @@ class PubNubClient {
     handleMessage(event) {
         const message = JSON.parse(event.message);
         console.log(`Received message on channel ${event.channel}:`, message);
+
+        if (event.channel === CHANNELS.BLOCKCHAIN) {
+            this.blockchain.replaceChain(message);
+        }
     }
 
     handlePresence(event) {
@@ -58,6 +64,13 @@ class PubNubClient {
 
     handleStatus(status) {
         console.log('PubNub Status:', status);
+    }
+
+    broadcastChain() {
+        this.publish({
+            channel: CHANNELS.BLOCKCHAIN,
+            message: JSON.stringify(this.blockchain.chain)
+        });
     }
 }
 
