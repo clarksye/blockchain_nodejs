@@ -80,7 +80,7 @@ $ npm install
 $ npm run test
 
 # Run the project
-$ npm 
+$ npm run start
 
 # The server will initialize in the <http://localhost:3000>
 ```
