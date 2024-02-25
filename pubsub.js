@@ -1,5 +1,11 @@
 const PubNub = require('pubnub');
 
+const CHANNELS = {
+    TEST: 'TEST',
+    BLOCKCHAIN: 'BLOCKCHAIN',
+    TRANSACTION: 'TRANSACTION'
+}
+
 class PubNubClient {
     constructor() {
         this.pubnub = new PubNub({
@@ -12,15 +18,18 @@ class PubNubClient {
         });
 
         this.pubnub.addListener({
-            message: this.handleMessage(),
-            presence: this.handlePresence(),
-            status: this.handleStatus(),
+            message: this.handleMessage.bind(this),
+            presence: this.handlePresence.bind(this),
+            status: this.handleStatus.bind(this),
         });
+
+        // Auto subcribe to channels
+        this.subscribe();
     }
 
-    subscribe(channels) {
+    subscribe() {
         this.pubnub.subscribe({
-            channels: channels,
+            channels: Object.values(CHANNELS),
             withPresence: false,
         });
     }
@@ -53,3 +62,6 @@ class PubNubClient {
 }
 
 module.exports = PubNubClient;
+
+pubnub_client = new PubNubClient();
+pubnub_client.publish('BLOCKCHAIN', { data: 'HALLO BLOCKCHAIN!' });
