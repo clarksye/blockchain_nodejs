@@ -12,8 +12,8 @@ class PubNubClient {
             publishKey: "pub-c-8a408912-60eb-49d6-aca2-92af6832a45c",
             subscribeKey: "sub-c-4e77cbb2-66f9-481b-9396-070d2b6b2a62",
             secretKey: "sec-c-NjA3ZDEwOTUtMTdlZC00YjNiLWFmZTMtMzNiZjQyYWZiYTgz",
-            // uuid: PubNub.generateUUID(),
-            uuid: "blockchain",
+            uuid: PubNub.generateUUID(),
+            // uuid: "blockchain",
             logVerbosity: false, // Optional: Set to true for debugging
         });
 
@@ -50,6 +50,13 @@ class PubNubClient {
     }
 
     handleMessage(event) {
+        // Mendapatkan UUID pengirim pesan dan UUID lokal
+        const senderUUID = event.publisher;
+        const localUUID = this.pubnub.getUUID();
+
+        // Memeriksa apakah pesan diterima dari pengirim yang berbeda
+        if (senderUUID === localUUID) return;
+
         const message = JSON.parse(event.message);
         console.log(`Received message on channel ${event.channel}:`, message);
 
