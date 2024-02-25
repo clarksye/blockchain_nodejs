@@ -69,7 +69,7 @@ class PubNubClient {
     broadcastChain() {
         this.publish({
             channel: CHANNELS.BLOCKCHAIN,
-            message: JSON.stringify(this.blockchain.chain)
+            message: this.blockchain.chain
         });
     }
 }
