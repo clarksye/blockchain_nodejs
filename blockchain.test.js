@@ -1,5 +1,6 @@
 const Blockchain = require('./blockchain');
 const Block = require('./block');
+const cryptoHash = require('./crypto-hash');
 
 describe('Blockchain', () => {
     let blockchain, newChain, originalChain;
@@ -59,6 +60,26 @@ describe('Blockchain', () => {
                 });
             });
 
+            describe('and the chain contains a block with a jumped difficulty', () => {
+                it('returns false', () => {
+                    const lastBlock = blockchain.chain[blockchain.chain.length - 1];
+                    const lastHash = lastBlock.hash;
+                    const timestamp = Date.now();
+                    const nonce = 0;
+                    const difficulty = lastBlock.difficulty - 3;
+                    const data = [];
+                    const hash = cryptoHash(timestamp, nonce, difficulty, lastHash, data);
+
+                    const badBlock = new Block({
+                        timestamp, lastHash, hash, nonce, difficulty, data
+                    });
+
+                    blockchain.chain.push(badBlock);
+
+                    expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+                });
+            });
+
             describe('and the chain does not contains any invalid blocks', () => {
                 it('returns true', () => {
                     expect(Blockchain.isValidChain(blockchain.chain)).toBe(true);
@@ -84,7 +105,7 @@ describe('Blockchain', () => {
                 newChain.chain[0] = { new: 'chain' };
                 blockchain.replaceChain(newChain.chain);
             });
-            
+
             it('does not replace the chain', () => {
                 expect(blockchain.chain).toEqual(originalChain);
             });
@@ -101,7 +122,7 @@ describe('Blockchain', () => {
                 newChain.addBlock({ data: 'Beets' });
                 newChain.addBlock({ data: 'Battlestar Galactica' });
             });
-            
+
             describe('and the chain is invalid', () => {
 
                 beforeEach(() => {
@@ -109,7 +130,7 @@ describe('Blockchain', () => {
 
                     blockchain.replaceChain(newChain.chain);
                 });
-                
+
                 it('does not replace the chain', () => {
                     expect(blockchain.chain).toEqual(originalChain);
                 });
