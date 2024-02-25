@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/clarksye/blockchain_nodejs#readme",
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4"
   },
   "dependencies": {
     "express": "^4.16.3",
