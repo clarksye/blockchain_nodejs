@@ -31,6 +31,6 @@ if (process.env.GENERATE_PEER_PORT === 'true') {
 }
 
 const PORT = PEER_PORT || DEFAULT_PORT;
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`listening at http://localhost:${PORT}`)
 });
