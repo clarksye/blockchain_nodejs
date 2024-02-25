@@ -9,7 +9,7 @@ const pubsub = new PubNubClient({ blockchain });
 
 setTimeout(() => {
     pubsub.broadcastChain();
-}, 5000);
+}, 3000);
 
 app.get('/api/blocks', (req, res) => {
     res.json(blockchain.chain);
@@ -23,8 +23,14 @@ app.post('/api/mine', (req, res) => {
     res.redirect('/api/blocks');
 });
 
+const DEFAULT_PORT = 3000;
+let PEER_PORT;
 
-const PORT = 3000;
+if (process.env.GENERATE_PEER_PORT === 'true') {
+    PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
+}
+
+const PORT = PEER_PORT || DEFAULT_PORT;
 app.listen(3000, () => {
     console.log(`listening at http://localhost:${PORT}`)
 });
