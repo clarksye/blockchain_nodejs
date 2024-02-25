@@ -62,6 +62,3 @@ class PubNubClient {
 }
 
 module.exports = PubNubClient;
-
-pubnub_client = new PubNubClient();
-pubnub_client.publish('BLOCKCHAIN', { data: 'HALLO BLOCKCHAIN!' });
