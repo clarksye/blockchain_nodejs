@@ -1,7 +1,7 @@
 const express = require('express');
 const request = require('request');
 const Blockchain = require('./blockchain');
-const PubNubClient = require('./pubsub');
+const PubNubClient = require('./app/pubsub');
 
 const app = express();
 app.use(express.json());
