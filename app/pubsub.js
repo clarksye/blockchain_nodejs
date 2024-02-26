@@ -1,19 +1,12 @@
 const PubNub = require('pubnub');
 
-const CHANNELS = {
-    TEST: 'TEST',
-    BLOCKCHAIN: 'BLOCKCHAIN',
-    TRANSACTION: 'TRANSACTION'
-}
-
 class PubNubClient {
-    constructor({ blockchain }) {
+    constructor({ blockchain, transactionPool }) {
         this.pubnub = new PubNub({
             publishKey: "pub-c-8a408912-60eb-49d6-aca2-92af6832a45c",
             subscribeKey: "sub-c-4e77cbb2-66f9-481b-9396-070d2b6b2a62",
             secretKey: "sec-c-NjA3ZDEwOTUtMTdlZC00YjNiLWFmZTMtMzNiZjQyYWZiYTgz",
             uuid: PubNub.generateUUID(),
-            // uuid: "blockchain",
             logVerbosity: false, // Optional: Set to true for debugging
         });
 
@@ -23,15 +16,13 @@ class PubNubClient {
             status: this.handleStatus.bind(this),
         });
 
-        // Auto subcribe to channels
-        this.subscribe();
-
         this.blockchain = blockchain;
+        this.transactionPool = transactionPool;
     }
 
-    subscribe() {
+    subscribe(channels) {
         this.pubnub.subscribe({
-            channels: Object.values(CHANNELS),
+            channels: channels,
             withPresence: false,
         });
     }
@@ -60,8 +51,15 @@ class PubNubClient {
         const message = JSON.parse(event.message);
         console.log(`Received message on channel ${event.channel}:`, message);
 
-        if (event.channel === CHANNELS.BLOCKCHAIN) {
-            this.blockchain.replaceChain(message);
+        switch(event.channel) {
+            case "BLOCKCHAIN":
+                this.blockchain.replaceChain(message);
+                break;
+            case "TRANSACTION":
+                this.transactionPool.setTransaction(message);
+                break;
+            default:
+                return;
         }
     }
 
@@ -75,9 +73,16 @@ class PubNubClient {
 
     broadcastChain() {
         this.publish({
-            channel: CHANNELS.BLOCKCHAIN,
-            message: this.blockchain.chain
+            channel: "BLOCKCHAIN",
+            message: JSON.stringify(this.blockchain.chain)
         });
+    }
+
+    broadcastTransaction(transaction) {
+        this.publish({
+            channel: "TRANSACTION",
+            message: JSON.stringify(transaction)
+        })
     }
 }
 
