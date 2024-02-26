@@ -138,7 +138,6 @@ describe('Transaction', () => {
                     Object.values(transaction.outputMap)
                         .reduce((total, outputAmount) => total + outputAmount)
                 ).toEqual(transaction.input.amount);
-                console.log(transaction.input.amount);
             });
 
             it('re-signs the transaction', () => {
