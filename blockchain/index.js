@@ -1,5 +1,5 @@
 const Block = require("./block");
-const cryptoHash = require("../util/crypto-hash");
+const { cryptoHash } = require("../util");
 
 class Blockchain {
     constructor() {
@@ -23,7 +23,7 @@ class Blockchain {
 
         if (!Blockchain.isValidChain(chain)) {
             console.error('The incoming chain must be valid');
-            return;  
+            return;
         }
 
         console.log('replacing chain with', chain)
@@ -40,7 +40,7 @@ class Blockchain {
             const actualLastHash = chain[i - 1].hash;
             const lastDifficulty = chain[i - 1].difficulty;
 
-            if(lastHash != actualLastHash) return false;
+            if (lastHash != actualLastHash) return false;
 
             const validatedHash = cryptoHash(timestamp, nonce, difficulty, lastHash, data);
 
