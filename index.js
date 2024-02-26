@@ -7,6 +7,16 @@ const Wallet = require('./wallet');
 
 const app = express();
 app.use(express.json());
+
+// Middleware for handle error JSON body
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        res.status(400).json({ error: 'Invalid JSON data' });
+    } else {
+        next();
+    }
+});
+
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
@@ -29,7 +39,6 @@ app.post('/api/mine', (req, res) => {
     res.redirect('/api/blocks');
 });
 
-// endpoint for transaction
 app.post('/api/transact', (req, res) => {
     const { amount, recipient } = req.body;
 

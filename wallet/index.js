@@ -14,12 +14,12 @@ class Wallet {
     }
 
     createTransaction({ amount, recipient }) {
-        if (amount > this.balance) {
-            throw new Error('Amount exceeds balance');
-        }
-
         if (typeof amount !== 'number' || isNaN(amount) || amount <= 0) {
             throw new Error('Amount not valid');
+        }
+        
+        if (amount > this.balance) {
+            throw new Error('Amount exceeds balance');
         }
 
         const transaction = new Transaction({ senderWallet: this, recipient, amount });
