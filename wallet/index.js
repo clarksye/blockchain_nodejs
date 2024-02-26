@@ -9,8 +9,6 @@ class Wallet {
         this.publicKey = this.keyPair.getPublic('hex');
     }
 
-    
-
     sign(data) {
         return this.keyPair.sign(cryptoHash(data));
     }
