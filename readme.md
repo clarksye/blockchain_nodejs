@@ -82,7 +82,17 @@ $ npm run test
 # Run the project
 $ npm run start
 
+# Run the project dev
+$ npm run dev
+
+# Run the project dev-peer
+$ npm run dev-peer
+
 # The server will initialize in the <http://localhost:3000>
+
+#API Enpoint :
+/api/blocks > blockchain
+/api/mine > mining
 ```
 
 ## :memo: License ##
