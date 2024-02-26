@@ -50,6 +50,30 @@ describe('Wallet', () => {
             });
         });
 
+        describe('and the amount must be a number', () => {
+            it('throws an error', () => {
+                expect(() => {
+                    return wallet.createTransaction({ amount: '100', recipient: 'foo-recipient' });
+                }).toThrow('Amount not valid');
+            });
+        });
+
+        describe('and the amount must be a greater than 0', () => {
+            it('throws an error', () => {
+                expect(() => {
+                    return wallet.createTransaction({ amount: 0, recipient: 'foo-recipient' });
+                }).toThrow('Amount not valid');
+            });
+        });
+
+        describe('and the amount cannot be negative number', () => {
+            it('throws an error', () => {
+                expect(() => {
+                    return wallet.createTransaction({ amount: -100, recipient: 'foo-recipient' });
+                }).toThrow('Amount not valid');
+            });
+        });
+
         describe('and the amount is valid', () => {
             let transaction, amount, recipient;
 
