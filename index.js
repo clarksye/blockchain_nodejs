@@ -29,6 +29,7 @@ app.post('/api/mine', (req, res) => {
     res.redirect('/api/blocks');
 });
 
+// endpoint for transaction
 app.post('/api/transact', (req, res) => {
     const { amount, recipient } = req.body;
 
