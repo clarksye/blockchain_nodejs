@@ -74,14 +74,14 @@ class PubNubClient {
     broadcastChain() {
         this.publish({
             channel: "BLOCKCHAIN",
-            message: JSON.stringify(this.blockchain.chain)
+            message: this.blockchain.chain
         });
     }
 
     broadcastTransaction(transaction) {
         this.publish({
             channel: "TRANSACTION",
-            message: JSON.stringify(transaction)
+            message: transaction
         })
     }
 }
