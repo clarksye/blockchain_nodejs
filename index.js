@@ -19,7 +19,7 @@ const transactionPool = new TransactionPool();
 const wallet = new Wallet();
 const pubsub = new PubNubClient({ blockchain, transactionPool });
 pubsub.subscribe(['BLOCKCHAIN', 'TRANSACTION']);
-const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub});
+const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
 
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
@@ -46,7 +46,11 @@ app.post('/api/transact', (req, res) => {
         if (transaction) {
             transaction.update({ senderWallet: wallet, recipient, amount });
         } else {
-            transaction = wallet.createTransaction({ recipient, amount });
+            transaction = wallet.createTransaction({
+                recipient,
+                amount,
+                chain: blockchain.chain
+            });
         }
     } catch (error) {
         return res.status(400).json({ type: 'error', message: error.message });

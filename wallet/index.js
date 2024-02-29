@@ -13,7 +13,14 @@ class Wallet {
         return this.keyPair.sign(cryptoHash(data));
     }
 
-    createTransaction({ amount, recipient }) {
+    createTransaction({ amount, recipient, chain }) {
+        if (chain) {
+            this.balance = Wallet.calculateBalance({
+                chain,
+                address: this.publicKey
+            })
+        }
+
         const transaction = new Transaction({ senderWallet: this, recipient, amount });
 
         return transaction;
