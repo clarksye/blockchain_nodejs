@@ -53,7 +53,11 @@ class PubNubClient {
 
         switch(event.channel) {
             case "BLOCKCHAIN":
-                this.blockchain.replaceChain(message);
+                this.blockchain.replaceChain(message, () => {
+                    this.transactionPool.clearBlockchainTransactions({
+                        chain: message 
+                    });
+                });
                 break;
             case "TRANSACTION":
                 this.transactionPool.setTransaction(message);
