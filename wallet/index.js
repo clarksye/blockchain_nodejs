@@ -35,6 +35,7 @@ class Wallet {
 
             for (let transaction of block.data) {
                 if (transaction.input.address === address) {
+                    console.log('yayaya')
                     hasConductedTransaction = true;
                 }
 
