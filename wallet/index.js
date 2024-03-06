@@ -21,9 +21,7 @@ class Wallet {
             })
         }
 
-        const transaction = new Transaction({ senderWallet: this, recipient, amount });
-
-        return transaction;
+        return new Transaction({ senderWallet: this, recipient, amount });
     }
 
     static calculateBalance({ chain, address }) {
@@ -39,6 +37,7 @@ class Wallet {
                 }
 
                 const addressOutput = transaction.outputMap[address];
+                console.log(transaction.outputMap);
 
                 if (addressOutput) {
                     outputTotal += addressOutput;
