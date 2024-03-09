@@ -1,5 +1,6 @@
 const express = require('express');
 const request = require('request');
+const path = require('path');
 const Blockchain = require('./blockchain');
 const PubNubClient = require('./app/pubsub');
 const TransactionPool = require('./wallet/transaction-pool');
@@ -8,6 +9,7 @@ const TransactionMiner = require('./app/transaction-miner');
 
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'client')));
 
 // Middleware for handle error
 app.use((err, req, res, next) => {
@@ -80,6 +82,11 @@ app.get('/api/wallet-info', (req, res) => {
         address: address,
         balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
     });
+});
+
+app.get('*', (req, res) => {
+    
+    res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
 const syncWithRootState = () => {
