@@ -9,7 +9,7 @@ const TransactionMiner = require('./app/transaction-miner');
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // Middleware for handle error
 app.use((err, req, res, next) => {
@@ -86,7 +86,7 @@ app.get('/api/wallet-info', (req, res) => {
 
 app.get('*', (req, res) => {
     
-    res.sendFile(path.join(__dirname, 'client/index.html'));
+    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
 const syncWithRootState = () => {
